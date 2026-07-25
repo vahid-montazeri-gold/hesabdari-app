@@ -770,13 +770,11 @@ table.innerHTML+=`
 
 </script>
 
-</div>
+  function backupData() {
 
- function backupData() {
+ const data = {};
 
-    const data = {};
-
-    for (let i = 0; i < localStorage.length; i++) {
+ for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         data[key] = localStorage.getItem(key);
     }
@@ -833,6 +831,8 @@ table.innerHTML+=`
     input.click();
 
 }
+
+</div>
      
  <script>
 if ('serviceWorker' in navigator) {
