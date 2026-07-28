@@ -766,7 +766,67 @@ table.innerHTML+=`
 
 }
 
+function backupData(){
+
+const data={
+balances:balances,
+buys:buys
+};
+
+const blob=new Blob(
+[JSON.stringify(data,null,2)],
+{type:"application/json"}
+);
+
+const a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="backup.json";
+a.click();
+
+URL.revokeObjectURL(a.href);
+
 }
+
+function restoreData(){
+
+document.getElementById("restoreFile").click();
+
+}
+
+document.getElementById("restoreFile").addEventListener("change",function(e){
+
+const file=e.target.files[0];
+
+if(!file) return;
+
+const reader=new FileReader();
+
+reader.onload=function(){
+
+const data=JSON.parse(reader.result);
+
+balances=data.balances || {
+card1:0,
+card2:0,
+card3:0
+};
+
+buys=data.buys || [];
+
+localStorage.setItem("balances",JSON.stringify(balances));
+localStorage.setItem("buys",JSON.stringify(buys));
+
+showDashboard();
+showBuys();
+showReport();
+
+alert("بازیابی با موفقیت انجام شد.");
+
+};
+
+reader.readAsText(file);
+
+}); 
 
 </script>
 
