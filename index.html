@@ -770,68 +770,6 @@ table.innerHTML+=`
 
 </script>
 
-  function backupData() {
-
- const data = {};
-
- for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        data[key] = localStorage.getItem(key);
-    }
-
-    const blob = new Blob(
-        [JSON.stringify(data, null, 2)],
-        { type: "application/json" }
-    );
-
-    const a = document.createElement("a");
-
-    a.href = URL.createObjectURL(blob);
-
-    const today = new Date().toISOString().slice(0,10);
-
-    a.download = "hesabdari_backup_" + today + ".json";
-
-    a.click();
-
-    URL.revokeObjectURL(a.href);
-
-}
-
- function restoreData(){
-
-    const input = document.getElementById("restoreFile");
-
-    input.onchange = function(e){
-
-        const file = e.target.files[0];
-
-        if(!file) return;
-
-        const reader = new FileReader();
-
-        reader.onload = function(){
-
-            const data = JSON.parse(reader.result);
-
-            for(const key in data){
-
-                localStorage.setItem(key,data[key]);
-
-            }
-
-            alert("اطلاعات با موفقیت بازیابی شد.\nلطفاً یک بار برنامه را ببندید و دوباره باز کنید.");
-
-        };
-
-        reader.readAsText(file);
-
-    };
-
-    input.click();
-
-}
-
 </div>
      
  <script>
